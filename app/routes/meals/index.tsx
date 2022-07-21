@@ -24,13 +24,7 @@ export const action: ActionFunction = async ({ request }) => {
   const filename = formData.get('file_input');
   if (filename) {
     console.log(filename);
-    // try {
-    //   const data = await fs.readFile('/Users/joe/test.txt', { encoding: 'utf8' });
-    //   console.log(data);
-    // } catch (err) {
-    //   console.log(err);
-    // }
-  
+
     // let apiUrl = "http://api.logmeal.es/v2/recognition/dish";
     // let res = await fetch(apiUrl, {
     //   headers: {
@@ -164,10 +158,10 @@ export default function MealsIndexPage() {
       { actionData && actionData.filename &&
         successNotification('Successfully uploaded file!')
       }
-      { fileDataURL
+      {/* { fileDataURL
         ? imageUploaded(fileDataURL)
         : noImageUploaded()
-      }
+      } */}
      </div>
   );
 }
