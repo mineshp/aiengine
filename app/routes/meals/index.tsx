@@ -15,6 +15,7 @@ const supportedImageMimeType = /image\/(png|jpg|jpeg)/i;
 export const action: ActionFunction = async ({ request }) => {
   console.log(request);
   // TODO: Check filename size is not > 1MB
+  // Uploads file to the server
   const fileUploadHandler = unstable_createFileUploadHandler({
     directory: './public/uploads',
     file: ({ filename }) => filename,
@@ -23,19 +24,26 @@ export const action: ActionFunction = async ({ request }) => {
   const formData: any = await unstable_parseMultipartFormData(request, fileUploadHandler);
   const filename = formData.get('file_input');
   if (filename) {
-    console.log(filename);
-
-    // let apiUrl = "http://api.logmeal.es/v2/recognition/dish";
-    // let res = await fetch(apiUrl, {
-    //   headers: {
-    //     Authorization: `Bearer ${process.env.API_KEY}`,
-    //   },
-    //   method: 'POST',
-    //   body: new Blob(filename)
+    const uploadFile = new FormData();
+    uploadFile.append('file', filename);
+    console.log(uploadFile);
+    // let fileData;
+    // fs.readFile('/Users/minesh/Dev/Personal/aiengine/server/public/uploads/Air-Jordan-4-Retro-Red-Thunder-Black-Red-New-Releases-CT8527-016_720x-1658497428942.jpg', function (err, data) {
+    //   if (err) throw err;
+    //   fileData = data;
     // });
+    // console.log(new Blob(filename));
+    let apiUrl = "http://api.logmeal.es/v2/recognition/dish";
+    let res = await fetch(apiUrl, {
+      headers: {
+        Authorization: `Bearer ${process.env.API_KEY}`,
+      },
+      method: 'POST',
+      body: uploadFile
+    });
   
-    // let data = await res.json();
-    // console.log(data);
+    let data = await res.json();
+    console.log(data);
   }
 
 
